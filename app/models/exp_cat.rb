@@ -1,0 +1,2 @@
+class ExpCat < ApplicationRecord
+end
