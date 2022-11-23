@@ -1,21 +1,21 @@
 class SessionsController < ApplicationController
-  before_action :set_current_user 
+  before_action :set_current_user
 
   # include CurrentUserConcern
 
   def create
     user = User
-      .find_by(email: params["user"]["email"])
-      .try(:authenticate, params["user"]["password"])
+      .find_by(email: params['user']['email'])
+      .try(:authenticate, params['user']['password'])
     if user
       session[:user_id] = user.id
       render json: {
         status: :created,
         logged_in: true,
-        user: user
+        user:
       }
     else
-      render  json: {status: 401}
+      render json: { status: 401 }
     end
   end
 
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
         logged_in: true,
         user: @current_user
       }
-    else 
+    else
       render json: {
         logged_in: false
       }
@@ -34,13 +34,14 @@ class SessionsController < ApplicationController
 
   def logout
     reset_session
-    render json: { status:200, logged_out: true }
+    render json: { status: 200, logged_out: true }
   end
 
   private
+
   def set_current_user
-    if session[:user_id]
-      @current_user = User.find(session[:user_id])
-    end
+    return unless session[:user_id]
+
+    @current_user = User.find(session[:user_id])
   end
 end
