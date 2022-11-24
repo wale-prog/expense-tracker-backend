@@ -1,5 +1,5 @@
 
-class Api::V1::CategoryController < ApplicationController
+class CategoryController < ApplicationController
 
   include CurrentUserConcern
 
@@ -8,7 +8,7 @@ class Api::V1::CategoryController < ApplicationController
       @categories = @current_user.categories
       render json: @categories
     else
-      render json: {status: 401}
+      render json: {user: session[:user_id]}
     end
   end
 end
