@@ -5,5 +5,5 @@ class User < ApplicationRecord
   has_many :categories, dependent: :destroy
 
 
-  validates :email, :name, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 end

@@ -4,8 +4,9 @@ class CategoryController < ApplicationController
   include CurrentUserConcern
 
   def index
-    if @current_user
-      @categories = @current_user.categories
+    user = User.find_by(id: params["user_id"])
+    if user
+      @categories = user.categories
       render json: @categories
     else
       render json: {user: session[:user_id]}

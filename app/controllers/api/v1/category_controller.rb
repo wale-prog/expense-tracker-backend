@@ -1,6 +1,6 @@
 
 class Api::V1::CategoryController < ApplicationController
-
+  
   include CurrentUserConcern
 
   def index
