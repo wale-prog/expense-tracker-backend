@@ -4,7 +4,7 @@ class Category < ApplicationRecord
   has_many :exp_cats
   has_many :expenses, through: :exp_cats, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, :user_id, presence: true
 
   def sum_amount
     expenses.sum(:amount)

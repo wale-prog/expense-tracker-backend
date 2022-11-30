@@ -8,12 +8,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :user, only: [:new] do
-        resources :category, only: [:index, :new, :create]
+        resources :category, only: [:index, :create]
       end
-      resources :expenses, only: [:index, :new, :create]
+      resources :expense, only: [:index, :create]
     end    
   end
-
-  get :category, to: "category#index"
 
 end
