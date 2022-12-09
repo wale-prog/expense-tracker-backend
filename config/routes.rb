@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :user, only: [:new] do
         resources :category, only: [:index, :create]
+        get :category_sum, to: "category#cat_sum"
       end
       resources :expense, only: [:index, :create]
     end    

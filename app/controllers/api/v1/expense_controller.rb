@@ -4,10 +4,11 @@ class Api::V1::ExpenseController < ApplicationController
 
   def index
     if @current_user
-      expenses = @current_user.expenses.includes
+      @expenses = @current_user.expenses.order('date ASC')
+   
       render json: {
         status: 200,
-        expenses: expenses 
+        expenses: @expenses,
       }
     else
       render json: { message: "You need to login to access this page" }
@@ -20,7 +21,7 @@ class Api::V1::ExpenseController < ApplicationController
       amount: params["expense"]["amount"],
       date: params["expense"]["date"],
     )
-    if expense.save
+    if expense
       expense.exp_cats.create(
         category_id: params["expense"]["category_id"],
         expense_id: expense.id
@@ -35,5 +36,4 @@ class Api::V1::ExpenseController < ApplicationController
       render json: { status: 500 }
     end
   end
-
 end

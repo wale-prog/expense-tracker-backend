@@ -11,6 +11,19 @@ class Api::V1::CategoryController < ApplicationController
     end
   end
 
+  def cat_sum
+    @category = Category.find(params["category"]["category_id"])
+    if @category
+      sum = @category.expenses.sum(:amount)
+      render json: {
+        status: 200,
+        category_expense: sum
+      }
+    else
+      render json: { status: 500 }
+    end
+  end
+
   def create
     category = Category.create(
       name: params["category"]["name"],
@@ -23,10 +36,8 @@ class Api::V1::CategoryController < ApplicationController
         category: category
       }
     else
-      error = raise error_class(category.errors.full_messages).new
       render json: {
         status: 500,
-        error: error
       }
     end
   end
